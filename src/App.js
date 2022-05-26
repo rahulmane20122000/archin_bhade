@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+import React,{useState} from 'react';
 import './App.css';
-
+var cnt=0;
 function App() {
+
+  
+  const[components,setcomponents]=useState([`Button ${cnt}`]);
+  const[lstbtn,setlstbtn]=useState('');
+ const setVals=(e,index)=>{
+   e.preventDefault();
+   console.log(index);
+   setlstbtn(index);
+ }
+  const AddBtn=()=>{
+    cnt++;
+    setcomponents([...components,`Button ${cnt}`])
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Button Count: {cnt}</h1>
+      <h1>Last button clicked :{lstbtn}</h1>
+    </div>
+         <button onClick={AddBtn}>Add Button</button>
+         {components.map((val,index)=>{
+           return(
+             <div>
+               <button key={index} onClick={(e)=> setVals(e,index)}>{val}</button>
+             </div>
+           );
+         })}
     </div>
   );
 }
